@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Joke</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+        margin: 0;
+      }
+      .container {
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 600px;
+      }
+      h1 {
+        color: #333;
+      }
+      .joke {
+        margin: 20px 0;
+        font-size: 1.2em;
+        color: #555;
+      }
+      .setup {
+        font-weight: bold;
+      }
+      .delivery {
+        color: #007bff;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Random Joke</h1>
+      <div id="joke" class="joke">Loading joke...</div>
+      <button onclick="getJoke()">Get Another Joke</button>
+    </div>
+
+    <script>
+      function getJoke() {
+        var xhr = new XMLHttpRequest();
+        xhr.open(
+          "GET",
+          "https://v2.jokeapi.dev/joke/Programming,Miscellaneous?blacklistFlags=nsfw,racist,sexist,explicit",
+          true
+        );
+
+        xhr.onload = function () {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            var response = JSON.parse(xhr.responseText);
+
+            var jokeElement = document.getElementById("joke");
+            if (response.type === "single") {
+              jokeElement.innerHTML = `<div class="joke">${response.joke}</div>`;
+            } else {
+              jokeElement.innerHTML = `
+            <div class="joke">
+              <div class="setup">${response.setup}</div>
+              <div class="delivery">${response.delivery}</div>
+            </div>
+          `;
+            }
+          } else {
+            document.getElementById("joke").innerHTML =
+              '<div class="error">Failed to load joke. Please try again.</div>';
+          }
+        };
+        xhr.onerror = function () {
+          document.getElementById("joke").innerHTML =
+            '<div class="error">Failed to load joke. Please check your connection.</div>';
+        };
+        xhr.send();
+      }
+
+      getJoke();
+    </script>
+  </body>
+</html>
