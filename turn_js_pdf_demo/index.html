@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Company Profile</title>
+</head>
+<body>
+  <div class="flipbook">
+    <div class="page">
+      <img src="images/0.jpg" alt="" />
+    </div>
+    <div class="page">
+      <img src="images/1.jpg" alt="" />
+    </div>
+    <div class="page">
+      <img src="images/2.jpg" alt="" />
+    </div>
+    <div class="page">
+      <img src="images/3.jpg" alt="" />
+    </div>
+    <div class="page">
+      <img src="images/4.jpg" alt="" />
+    </div>
+    <div class="page">
+      <img src="images/5.jpg" alt="" />
+    </div>
+    <div class="page">
+      <img src="images/6.jpg" alt="" />
+    </div>
+    <div class="hard">Thank You <small>Nirvan Infotech</small></div>
+  </div>
+
+  <!-- Audio for flip sound -->
+  <audio id="flip-sound" src="/audio/page-sound.mp3" preload="auto"></audio>
+
+  <script src="jquery.js"></script>
+  <script src="turn.js"></script>
+  <script>
+    $(".flipbook").turn({
+      width: 1500,
+      height: 500,
+      autoCenter: true
+    });
+
+    // Play flip sound when turning pages
+    $(".flipbook").on("turning", function() {
+      document.getElementById("flip-sound").play();
+    });
+  </script>
+</body>
+</html>
